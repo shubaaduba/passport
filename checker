@@ -1,0 +1,26 @@
+import requests
+
+def check_gitcoin_passport(wallet_address):
+    # API endpoint for fetching passport data
+    api_url = f"https://api.gitcoin.co/users/{wallet_address}/passport"
+
+    # Send GET request to the API
+    response = requests.get(api_url)
+
+    if response.status_code == 200:
+        passport_data = response.json()
+
+        # Extract the passport score from the response
+        passport_score = passport_data.get("score")
+        
+        return passport_score
+    else:
+        print("Error occurred while fetching passport data.")
+        return None
+
+# Example usage: Check the Gitcoin Passport score for a wallet address
+wallet_address = "0x92c848560842e1b9CC2DEBE0E6d7DBCe55297d65"
+passport_score = check_gitcoin_passport(wallet_address)
+
+if passport_score is not None:
+    print(f"Gitcoin Passport score for wallet address {wallet_address}: {passport_score}")
